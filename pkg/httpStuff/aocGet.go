@@ -1,4 +1,4 @@
-package aocGet
+package aocget
 
 import (
 	"fmt"
