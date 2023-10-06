@@ -7,6 +7,7 @@ import (
 )
 
 // Request sends a GET request and returns the response body as a string.
+// Also takes a cookie string to authenticate with the AoC server.
 func AoCRequest(searchURL string, cookieString string) (string, error) {
 	client := &http.Client{}
 

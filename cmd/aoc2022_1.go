@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/wesh92/learning_golang/pkg/httpstuff/aocget" // adjust this import path based on your module name
+	aocget "github.com/wesh92/learning_golang/pkg/httpstuff"
 )
 
 func main() {
