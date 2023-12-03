@@ -3,12 +3,14 @@ package aocget
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"strings"
 )
 
 // Request sends a GET request and returns the response body as a string.
 // Also takes a cookie string to authenticate with the AoC server.
-func AoCRequest(searchURL string, cookieString string) (string, error) {
+func Request(searchURL string, cookieString string) (string, error) {
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", searchURL, nil)
@@ -38,4 +40,24 @@ func AoCRequest(searchURL string, cookieString string) (string, error) {
 	}
 
 	return string(body), nil
+}
+
+func GetInput(yearString string, dayString string, session string) (string, error) {
+	url := fmt.Sprintf("https://adventofcode.com/%s/day/%s/input", yearString, dayString)
+	sessionId := fmt.Sprintf("session=%s", session)
+	body, err := Request(url, sessionId)
+	if err != nil {
+		log.Println("Error:", err)
+		return "", err
+	}
+	return string(body), nil
+}
+
+func ProvideLines(yearString string, dayString string, session string) ([]string, error) {
+	input, err := GetInput(yearString, dayString, session)
+	if err != nil {
+		log.Println("Error:", err)
+		return nil, err
+	}
+	return strings.Split(input, "\n"), nil
 }
